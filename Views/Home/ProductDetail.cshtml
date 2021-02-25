@@ -1,0 +1,41 @@
+<style>
+    h1 {
+        text-align: center;
+        margin: 30px auto;
+    }
+     .main
+    {
+        display: flex;
+        justify-content: space-evenly;
+    }
+</style>
+
+@model Association
+
+<h1>@ViewBag.catInProd.Name</h1>
+
+<div class="main">
+    <div class="left">
+        <ul><h2>Categories:</h2></ul>
+        @foreach(Association cat in ViewBag.catInProd.Categories)
+        {
+            <li>@cat.Category.Name</li>
+        }
+        
+    </div>
+    <div class="right">
+        <h2>Add Category:</h2>
+        <form asp-action="AddCat" asp-controller="Home" method="post">
+            <select asp-for="CategoryId" >
+                <option selected disabled>Select Category</option>
+            @foreach(var c in ViewBag.AllCategories)
+            {
+                <option value="@c.CategoryId">@c.Name</option>
+            }
+            </select>
+            <input type="hidden" asp-for="ProductId" value=@ViewBag.catInProd.ProductId />
+
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+</div>

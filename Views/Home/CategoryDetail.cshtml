@@ -1,0 +1,43 @@
+<style>
+    h1 {
+        text-align: center;
+        margin: 30px auto;
+    }
+     .main
+    {
+        display: flex;
+        justify-content: space-evenly;
+    }
+</style>
+
+@model Association
+
+<h1>@ViewBag.prodWithCat.Name</h1>
+@* <h1>product name:</h1> *@
+
+<div class="main">
+    <div class="left">
+        <ul><h2>Products:</h2></ul>
+        @foreach(Association prod in ViewBag.prodWithCat.Products)
+        {
+            <li>@prod.Product.Name</li>
+        }
+        
+    </div>
+    <div class="right">
+        <h2>Add Product:</h2>
+        <form asp-action="AddProd" asp-controller="Home" method="post">
+            <select asp-for="ProductId" >
+                <option selected disabled>Select Product</option>
+            @foreach(var c in ViewBag.AllProducts)
+            {
+                <option value="@c.ProductId">@c.Name</option>
+            }
+            </select>
+            @* hidden input to tell the backend which category we're updating - products selected from this dropdown will be associated with the current category *@
+            <input type="hidden" asp-for="CategoryId" value=@ViewBag.prodWithCat.CategoryId />
+
+            <button type="submit" class="btn btn-outline-primary">Submit</button>
+        </form>
+    </div>
+</div>

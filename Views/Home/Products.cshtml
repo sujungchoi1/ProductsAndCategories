@@ -1,0 +1,48 @@
+<style>
+    .header 
+    {
+        text-align: center;
+        margin: 30px auto;
+    }
+    .formGroup
+    {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+
+@model Product
+
+<div class="header">
+    <h2>Products | <a href="categories">Categories</a></h2>
+</div>
+
+<div class="formGroup">
+    <form asp-action="CreateProduct" method="post">
+        <h1>New Product</h1>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control"></label>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" class="form-control"></label>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Price"></label>
+            <input asp-for="Price" class="form-control"></label>
+            <span asp-validation-for="Price" class="text-danger"></span>
+        </div>
+        <button>Create</button>
+    </form>
+    <div class="list">
+        <ul>Existing Products</ul>
+        @foreach(Product product in @ViewBag.AllProducts)
+        {
+        <li><a href="/products/@product.ProductId">@product.Name</a> $@product.Price</li>
+
+        }
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<style>
+    .header 
+    {
+        text-align: center;
+        margin: 30px auto;
+    }
+    .formGroup
+    {
+        display: flex;
+        justify-content: space-around;
+    }
+</style>
+
+@model Category
+
+<div class="header">
+    <h2><a href="Products">Products</a> | Categories</h2>
+</div>
+
+<div class="formGroup">
+    <form asp-action="CreateCategory" method="post">
+        <h1>New Category</h1>
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control"></label>
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <button>Create</button>
+    </form>
+    <div class="list">
+        <ul>Existing Products</ul>
+        @foreach(Category cat in @ViewBag.AllCategories)
+        {
+        @* <li><a asp-action="Products" asp-controller="Home" asp-route-productId="@product.ProductId">@product.Name</a> @product.Price</li> *@
+        <li><a href="/categories/@cat.CategoryId">@cat.Name</a></li>
+
+        }
+    </div>
+</div>
